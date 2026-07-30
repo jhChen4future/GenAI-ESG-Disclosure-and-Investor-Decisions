@@ -1,0 +1,35 @@
+{{ block title }}理解测试{{ endblock }}
+
+{{ block content }}
+
+<div class="alert alert-warning">
+    <strong>额外奖励环节：</strong> 请回答以下问题。每答对一题，您将获得额外的实验报酬。<br>
+    <small>
+        题型说明：问题1、问题2为<strong>单选题</strong>；问题3为<strong>数值填写题</strong>（仅填写数字即可）。<br>
+        判分说明：数值题按题目给定的区间容差判定，落在允许区间内即判为正确。
+    </small>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        {{ formfield 'quiz_1' }}
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        {{ formfield 'quiz_2' }}
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        {{ formfield 'quiz_3' }}
+    </div>
+</div>
+
+<div class="text-center">
+    {{ next_button }}
+</div>
+
+{{ endblock }}

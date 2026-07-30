@@ -1,0 +1,198 @@
+\documentclass[a4paper,12pt]{article}
+
+% 基础宏包配置
+\usepackage{ctex}      % 中文支持
+\usepackage{geometry}  % 页面布局
+\usepackage{booktabs}  % 专业表格线
+\usepackage{longtable} % 长表格
+\usepackage{array}     % 表格列控制
+\usepackage{enumitem}  % 列表定制
+\usepackage{titlesec}  % 标题格式
+\usepackage{fancyhdr}  % 页眉页脚
+\usepackage{xcolor}    % 颜色支持
+\usepackage{graphicx}  % 图片支持（虽然本代码不含实际图片文件，但保留宏包习惯）
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% 企业VI配色模拟
+\definecolor{primaryBlue}{RGB}{0, 56, 107}   % 稳重蓝
+\definecolor{ecoGreen}{RGB}{66, 168, 59}     % 生态绿
+
+% 标题格式定制
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{primaryBlue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{ecoGreen}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries\color{black}}{\thesubsubsection}{1em}{}
+
+% 列表样式定制
+\setlist[itemize]{label=$\bullet$, leftmargin=*, itemsep=2pt, topsep=2pt}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small \textbf{2024环境、社会及治理报告}}
+\rhead{\small 迈向零碳未来}
+\cfoot{\thepage}
+
+\title{\textbf{\huge 2024年度ESG报告}\\ \vspace{0.5em} \large 科技驱动美好出行 \quad 绿色引领可持续未来}
+\author{本公司董事会办公室}
+\date{2025年3月}
+
+\begin{document}
+
+\maketitle
+
+\section{战略篇：新质生产力与全球化布局}
+
+2024年，全球汽车产业正经历百年未有之大变局。在国家“双碳”战略深入实施与“新质生产力”加速形成的宏观背景下，本公司坚定不移地推进“三直四化”战略——即实现电动化、智能网联化、高端化、国际化。我们不再仅仅是客车制造商，而是致力于成为全球领先的出行解决方案提供商。
+
+面对中国汽车“出海”的历史机遇，我们将绿色低碳理念融入研发、生产、供应链及社会责任的全生命周期，以技术创新解决社会痛点，以稳健治理回馈股东信任。
+
+\subsection{稳健经营与股东回报}
+在复杂多变的经济环境中，公司凭借高端化产品布局与全球市场拓展，实现了显著的业绩增长。我们坚持与股东共享发展成果，以实际行动践行长期主义。
+
+\begin{table}[h]
+\centering
+\caption{2024年度经济绩效与股东回报概览}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.45\textwidth} p{0.25\textwidth} p{0.2\textwidth}}
+\toprule
+\textbf{关键指标} & \textbf{2024年实绩} & \textbf{变动趋势} \\
+\midrule
+营业收入 & \textbf{372.18 亿元} & $\uparrow$ 37.63\% \\
+归属于母公司股东的净利润 & \textbf{41.16 亿元} & 稳步增长 \\
+全年现金分红总额 & \textbf{44.28 亿元} & 超额分红 \\
+分红实施频次 & \textbf{2 次} & 增加中期分红 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{合规治理与供应链共赢}
+我们深知，合规是企业生存的底线，而供应链的韧性决定了我们能走多远。
+\begin{itemize}
+    \item \textbf{合规标杆}：公司已连续13年获得交易所信息披露“A级”评价，并顺利通过ISO 37301合规管理体系认证，标志着我们的治理水平达到国际标准。
+    \item \textbf{阳光采购}：
+    \begin{itemize}
+        \item 现有合作供应商 \textbf{530 家}，其中 \textbf{20\%} 来自河南本地，有力带动了区域装备制造业的集群发展。
+        \item 严守廉洁底线，已与超过 \textbf{900 家} 供应商（含潜在合作伙伴）签署廉洁协议，构建清亲商业生态。
+    \end{itemize}
+\end{itemize}
+
+\section{创新篇：硬核科技重塑出行体验}
+
+在这个软件定义汽车的时代，我们将年营收的近5\%投入研发，致力于让商用车变得更聪明、更高效。2024年，我们的多项核心技术实现了突破性落地。
+
+\subsection{研发投入与知识产权}
+\begin{itemize}
+    \item \textbf{高强度投入}：全年研发支出 \textbf{17.88 亿元}（占比4.80\%），汇聚研发人员 \textbf{3,505 人}，其中包含16位博士领军人才。
+    \item \textbf{成果转化}：新增授权专利 \textbf{176 项}（发明专利114项），累计参与制定国家及行业标准 \textbf{317 项}，持续引领行业技术规范。
+\end{itemize}
+
+\subsection{核心技术通俗解析}
+为了让公众更好地理解我们的技术价值，以下对本年度的关键创新进行解读：
+
+\begin{itemize}
+    \item \textbf{YOS车机操作系统（让车像手机一样可升级）}：
+    传统汽车软件一旦出厂就很难更改。我们自主研发的“YOS”系统实现了“软硬解耦”，这意味着汽车软件可以像手机APP一样独立于硬件运行。通过OTA（空中下载技术），用户可以随时远程升级系统，让车辆功能常用常新。
+    
+    \item \textbf{C架构（车辆的“中央大脑”）}：
+    我们摒弃了过去几十个控制器各自为战的模式，开发了“中央计算+区域控制”的C架构。它就像给汽车装上了一个超级大脑和几个执行组长，不仅运算速度大幅提升，还减少了复杂的线束连接，降低了故障率。
+    
+    \item \textbf{多合一动力域控制器（能效提升的关键）}：
+    我们在控制器中应用了先进的碳化硅（SiC）模块。相比传统硅基模块，碳化硅的开关损耗降低了 \textbf{50\%-70\%}。这直接带来了更高的能量转化效率，让每一度电能跑得更远。
+    
+    \item \textbf{多源超低温热泵}：
+    解决了电动车“冬天掉电快”的行业难题。该系统能从环境空气、电机余热中“汲取”热量。实测显示，在低温环境下采暖节能效果高达 \textbf{30\%}。
+\end{itemize}
+
+\subsection{智能网联新高度}
+\begin{itemize}
+    \item \textbf{L4级自动驾驶}：我们的自动驾驶巴士已累计安全运营超过 \textbf{1,700 万公里}，技术成熟度行业领先。
+    \item \textbf{国家级试点}：成功获批国家首批智能网联汽车准入试点，标志着我们的技术已准备好迎接规模化商业应用的考验。
+\end{itemize}
+
+\section{社会篇：以人为本的温度}
+
+技术是有温度的。我们致力于为员工创造安全的成长空间，为社区带去切实的关怀。
+
+\subsection{员工安全与发展}
+我们拥有16,707名员工（女性占比10.02\%），每一位员工的安全都是重中之重。
+\begin{table}[h]
+\centering
+\caption{2024年度安全生产投入与绩效}
+\begin{tabular}{l l}
+\toprule
+\textbf{投入项目/指标} & \textbf{数据与成效} \\
+\midrule
+劳动防护投入 & \textbf{5,500 余万元}（配备高标准防护装备） \\
+环境改善投入 & \textbf{2,200 余万元}（车间除尘、降噪升级） \\
+安全培训投入 & \textbf{180 余万元}（覆盖 7.9 万人次） \\
+职业健康绩效 & \textbf{0 新增} 职业病 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{公益案例：连接美好生活}
+
+\subsubsection{案例一：儿童交通安全公益行——看见“看不见的危险”}
+2024年，我们的品牌公益项目“儿童交通安全公益行”继续深入全国。
+\begin{itemize}
+    \item \textbf{场景重现}：在华东某市的活动现场，我们没有枯燥的说教，而是把一辆真实的客车开进校园。工作人员在车辆四周放置了特制的模拟障碍物，邀请孩子们轮流坐进驾驶室。
+    \item \textbf{体验式教育}：当孩子们发现从后视镜里完全看不到车尾和车头的某些区域时，才真正理解了什么是“盲区”。这种震撼的体验让“远离大车”的安全意识深植于心。
+    \item \textbf{影响范围}：全年走过13个省市，直接覆盖近万名儿童。
+\end{itemize}
+
+\subsubsection{案例二：海外“零碳森林”——在世界播种绿色}
+作为国际化企业，我们在南美某国发起了“零碳森林”计划。
+\begin{itemize}
+    \item \textbf{行动}：针对当地干旱化趋势，我们选育了耐旱树种进行大规模种植。
+    \item \textbf{成果}：截至目前，全球累计植树 \textbf{36,000 余棵}。这片森林不仅能持续吸收二氧化碳，还成为了当地社区休闲的绿地，生动诠释了中国企业的全球责任担当。
+\end{itemize}
+
+\section{环境篇：打造绿色制造标杆}
+
+我们承诺：在提供绿色产品的同时，通过精益管理和技术改造，持续降低生产运营过程中的环境足迹。
+
+\subsection{碳排放与能源管理数据表}
+我们建立了完善的碳排放监控体系，2024年关键环境绩效如下：
+
+\begin{table}[h]
+\centering
+\caption{2024年度能源与排放关键绩效表}
+\begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+\toprule
+\textbf{环境指标} & \textbf{2024年数值} \\
+\midrule
+范围1排放（直接能源） & 57,330.53 吨CO$_2$ \\
+范围2排放（外购电力） & 122,786.63 吨CO$_2$ \\
+\textbf{温室气体排放强度} & \textbf{0.07 吨CO$_2$/万元营收} \\
+综合能源消费量 & 34,560.94 吨标准煤 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{节能减排的具体行动}
+为了降低上述排放数据，我们实施了精准的“减法”：
+\begin{enumerate}
+    \item \textbf{节能技改}：全年落地7项重点改造项目。通过设备变频升级和工艺优化，年节电 \textbf{1,258 兆瓦时}，年节气 \textbf{11.34 万立方米}。
+    \item \textbf{余热回收}：我们不浪费生产中的每一份热量。通过回收空压机和烘干炉的余热，全年利用热能约 \textbf{29,306 吉焦}，大幅减少了锅炉天然气的使用。
+\end{enumerate}
+
+\subsection{迈向清洁能源}
+我们正在从源头改变能源结构：
+\begin{itemize}
+    \item \textbf{自建光伏}：在新能源智造基地的屋顶，光伏电站全年发电 \textbf{155.68 万千瓦时}，累计减少碳排放约835吨。
+    \item \textbf{绿电交易}：主动采购绿色电力 \textbf{13,580 兆瓦时}，提升清洁能源使用占比。
+\end{itemize}
+
+\subsection{资源循环利用}
+\begin{itemize}
+    \item \textbf{水资源闭环}：通过中水回用系统，全年重复用水量高达 \textbf{6,465.36 万吨}，重复用水率达到 \textbf{97.8\%}，基本实现了工业用水的内部循环。
+    \item \textbf{固废资源化}：产生的一般工业固废中，有 \textbf{61,485.76 吨} 被回收利用；危险废物产生量为4,110.84吨，全部委托有资质单位进行100\%合规处置。
+    \item \textbf{绿色包装}：在物流环节大力推行循环包装箱，国产零部件的周转包装占比已提升至 \textbf{89\%}，大幅减少了一次性纸箱的消耗。
+\end{itemize}
+
+\end{document}

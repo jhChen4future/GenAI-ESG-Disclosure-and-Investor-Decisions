@@ -1,0 +1,377 @@
+{{ block title }}
+    披露策略制定
+{{ endblock }}
+
+{{ block content }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    /* --- 1. 核心修改：让整个页面变宽 --- */
+    /* 覆盖 oTree 默认的容器宽度限制，让页面占满屏幕的 95% */
+    .otree-body {
+        max-width: 95% !important;
+    }
+
+    :root {
+        --active-color: #3498db;
+        --selected-bg: #e8f6fd;
+        --card-border: #e0e0e0;
+    }
+    
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        /* 确保容器也能撑开 */
+        width: 100%; 
+    }
+    
+    /* --- 2. 核心修改：左侧预览区 --- */
+    .preview-section {
+        flex: 1; /* 自动占据剩余的所有宽度 */
+        min-width: 500px; 
+        padding-right: 30px; /* 增加一点间距 */
+    }
+
+    /* --- 3. 核心修改：增加 PDF 窗口高度 --- */
+    .pdf-frame {
+        width: 100%;
+        height: 800px; /* 【改这里】从 600px 改为 800px 或更高，比如 80vh */
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        background: #525659;
+    }
+    
+    /* 右侧 矩阵选择区 (保持不变，或者稍微调窄一点点以留空间给左边) */
+    .matrix-section {
+        width: 380px; /* 稍微给左边让一点空间，原为400px */
+        flex-shrink: 0; /* 防止被挤压 */
+    }
+    
+    /* 矩阵样式 */
+    .matrix-row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .matrix-label {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        color: #555;
+        font-size: 0.9rem;
+    }
+    .matrix-cell {
+        flex: 1;
+        margin: 0 5px;
+        padding: 10px 5px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s;
+        background: white;
+    }
+    .matrix-cell:hover {
+        border-color: #aaa;
+        transform: translateY(-2px);
+    }
+    .matrix-cell.active {
+        border-color: var(--active-color);
+        background-color: var(--selected-bg);
+        box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+    }
+    .matrix-cell i {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+        color: #7f8c8d;
+    }
+    .matrix-cell.active i {
+        color: var(--active-color);
+    }
+    
+    /* 底部 决策区 */
+    .decision-area {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid #eee;
+    }
+    .scenario-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 15px;
+        height: 100%;
+        position: relative;
+    }
+    .scenario-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .prob-badge {
+        background: #2c3e50;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .current-choice-display {
+        margin: 15px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border: 1px dashed #ccc;
+        border-radius: 4px;
+        text-align: center;
+        color: #777;
+        font-style: italic;
+    }
+    .current-choice-display.filled {
+        background: #d4edda;
+        border-style: solid;
+        border-color: #c3e6cb;
+        color: #155724;
+        font-style: normal;
+        font-weight: bold;
+    }
+    
+    /* 提示信息 */
+    .alert-info-custom {
+        background-color: #e1f5fe;
+        border-left: 5px solid #29b6f6;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="alert-info-custom">
+    <h5 class="m-0"><i class="fas fa-info-circle"></i> 任务说明：策略性披露</h5>
+    <p class="mb-0 mt-2 small">
+        请浏览右侧的 9 种报告草案。针对投资者拥有 AI 辅助的五种不同概率（0%、25%、50%、75%、100%），请分别决定您要提交哪一份报告。<br>
+        <strong>实验中展示的公司基础信息、管理者发布报告内容及相关数据均为准确信息。</strong><br>
+        <strong>最终系统将根据投资者的真实情况（是否有 AI），自动发送您在对应场景下选择的报告。</strong>
+    </p>
+</div>
+
+<div class="main-container">
+    <div class="preview-section">
+        <h6 class="mb-3"><i class="fas fa-eye"></i> 报告预览区 (当前预览: <span id="preview-label">默认</span>)</h6>
+        <iframe id="pdf-viewer" class="pdf-frame" src=""></iframe>
+        <div class="text-center mt-2 text-muted small">
+            点击右侧矩阵中的选项以切换预览
+        </div>
+    </div>
+
+    <div class="matrix-section">
+        <h6 class="mb-3 text-center"><i class="fas fa-th"></i> 报告方案库 (点击选择)</h6>
+        
+        <div class="d-flex text-center small text-muted mb-2">
+            <div style="width: 80px;"></div> <div style="flex:1">文本格式1<br>高结构化</div>
+            <div style="flex:1">文本格式2<br>标准段落</div>
+            <div style="flex:1">文本格式3<br>文本堆砌</div>
+        </div>
+
+        {{ for row in grid_items }}
+        <div class="matrix-row">
+            <div class="matrix-label">{{ row.l_label }}</div>
+            
+            {{ for item in row.cols }}
+            <div class="matrix-cell" 
+                 onclick="previewReport(this, '{{ item.l }}', '{{ item.f }}', '{{ item.pdf_url }}', '{{ item.desc }}')">
+                <i class="far fa-file-alt"></i>
+                <div class="small font-weight-bold">方案 {{ item.l }}-{{ item.f }}</div>
+            </div>
+            {{ endfor }}
+            
+        </div>
+        {{ endfor }}
+
+        <div class="mt-3 p-3 bg-light border rounded small">
+            <strong>当前预览方案：</strong><br>
+            <span id="current-desc" class="text-primary">请点击上方矩阵选择...</span>
+        </div>
+    </div>
+</div>
+
+<div class="decision-area">
+    <h5 class="mb-4"><i class="fas fa-clipboard-check"></i> 请制定您的披露策略</h5>
+    <div class="alert alert-danger py-2 px-3 small" role="alert">
+        <i class="fas fa-exclamation-triangle"></i>
+        <strong>重要提示：</strong>本页策略一旦确认提交即不可撤销，请在提交前仔细核对五个场景的选择。
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span>场景 A</span>
+                    <span class="prob-badge bg-secondary">0% AI 概率</span>
+                </div>
+                <p class="small text-muted">如果投资者完全确定<b>没有</b> AI 辅助（是纯人类），您提交哪份报告？</p>
+                
+                <div id="display-0" class="current-choice-display">未选择</div>
+                
+                <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="applyChoice('0')">
+                    <i class="fas fa-arrow-down"></i> 填入当前预览方案
+                </button>
+                
+                <input type="hidden" name="strat_0_l" id="input_0_l" required>
+                <input type="hidden" name="strat_0_f" id="input_0_f" required>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span>场景 B</span>
+                    <span class="prob-badge" style="background:#5bc0de;">25% AI 概率</span>
+                </div>
+                <p class="small text-muted">如果投资者有 <b>25% 的可能性</b> 拥有 AI 辅助，您提交哪份报告？</p>
+
+                <div id="display-25" class="current-choice-display">未选择</div>
+
+                <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="applyChoice('25')">
+                    <i class="fas fa-arrow-down"></i> 填入当前预览方案
+                </button>
+
+                <input type="hidden" name="strat_25_l" id="input_25_l" required>
+                <input type="hidden" name="strat_25_f" id="input_25_f" required>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span>场景 C</span>
+                    <span class="prob-badge bg-info">50% AI 概率</span>
+                </div>
+                <p class="small text-muted">如果投资者有 <b>50% 的可能性</b> 拥有 AI 辅助，您提交哪份报告？</p>
+                
+                <div id="display-50" class="current-choice-display">未选择</div>
+                
+                <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="applyChoice('50')">
+                    <i class="fas fa-arrow-down"></i> 填入当前预览方案
+                </button>
+                
+                <input type="hidden" name="strat_50_l" id="input_50_l" required>
+                <input type="hidden" name="strat_50_f" id="input_50_f" required>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span>场景 D</span>
+                    <span class="prob-badge" style="background:#17a2b8;">75% AI 概率</span>
+                </div>
+                <p class="small text-muted">如果投资者有 <b>75% 的可能性</b> 拥有 AI 辅助，您提交哪份报告？</p>
+
+                <div id="display-75" class="current-choice-display">未选择</div>
+
+                <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="applyChoice('75')">
+                    <i class="fas fa-arrow-down"></i> 填入当前预览方案
+                </button>
+
+                <input type="hidden" name="strat_75_l" id="input_75_l" required>
+                <input type="hidden" name="strat_75_f" id="input_75_f" required>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span>场景 E</span>
+                    <span class="prob-badge bg-dark">100% AI 概率</span>
+                </div>
+                <p class="small text-muted">如果投资者完全确定 <b>拥有</b> AI 辅助，您提交哪份报告？</p>
+                
+                <div id="display-100" class="current-choice-display">未选择</div>
+                
+                <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="applyChoice('100')">
+                    <i class="fas fa-arrow-down"></i> 填入当前预览方案
+                </button>
+                
+                <input type="hidden" name="strat_100_l" id="input_100_l" required>
+                <input type="hidden" name="strat_100_f" id="input_100_f" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-success btn-lg px-5" id="submit-btn" disabled>
+            <i class="fas fa-check-circle"></i> 确认并在所有场景下提交
+        </button>
+        <div class="small text-danger mt-2" id="error-msg" style="visibility: hidden;">请先完成所有 5 个场景的选择</div>
+    </div>
+</div>
+
+<script>
+    // 当前正在预览的参数
+    let currentPreview = { l: null, f: null, desc: null };
+    
+    // 初始化：默认加载第一个报告
+    window.onload = function() {
+        // 模拟点击第一个单元格
+        let firstCell = document.querySelector('.matrix-cell');
+        if(firstCell) firstCell.click();
+    };
+
+    function previewReport(element, l, f, url, desc) {
+        // 1. 更新全局变量
+        currentPreview = { l: l, f: f, desc: desc };
+        
+        // 2. 更新 UI 激活状态
+        document.querySelectorAll('.matrix-cell').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        
+        // 3. 加载 PDF
+        document.getElementById('pdf-viewer').src = url + "#toolbar=0&view=FitH";
+        
+        // 4. 更新文字描述
+        document.getElementById('preview-label').innerText = `L${l}-F${f}`;
+        document.getElementById('current-desc').innerText = `[方案 L${l}-F${f}] ${desc}`;
+    }
+
+    function applyChoice(scenario) {
+        if (!currentPreview.l) {
+            alert("请先在上方矩阵中点击选择一个方案。");
+            return;
+        }
+        
+        // 1. 填入隐藏 Input
+        document.getElementById(`input_${scenario}_l`).value = currentPreview.l;
+        document.getElementById(`input_${scenario}_f`).value = currentPreview.f;
+        
+        // 2. 更新显示区域
+        let display = document.getElementById(`display-${scenario}`);
+        display.innerHTML = `<i class="fas fa-check"></i> 已选：方案 L${currentPreview.l}-F${currentPreview.f}<br><span class="small text-muted">${currentPreview.desc}</span>`;
+        display.classList.add('filled');
+        
+        checkCompletion();
+    }
+    
+    function checkCompletion() {
+        let s0 = document.getElementById('input_0_l').value;
+        let s25 = document.getElementById('input_25_l').value;
+        let s50 = document.getElementById('input_50_l').value;
+        let s75 = document.getElementById('input_75_l').value;
+        let s100 = document.getElementById('input_100_l').value;
+        
+        let btn = document.getElementById('submit-btn');
+        let msg = document.getElementById('error-msg');
+        
+        if (s0 && s25 && s50 && s75 && s100) {
+            btn.disabled = false;
+            msg.style.visibility = 'hidden';
+        } else {
+            btn.disabled = true;
+            msg.style.visibility = 'visible';
+        }
+    }
+</script>
+
+{{ endblock }}

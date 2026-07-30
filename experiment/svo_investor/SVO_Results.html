@@ -1,0 +1,46 @@
+{{ block title }}资金分配任务结果{{ endblock }}
+
+{{ block content }}
+
+<div class="card text-center mb-4 border-success">
+    <div class="card-header bg-success text-white">
+        <h4>本阶段最终收益</h4>
+    </div>
+    <div class="card-body">
+        <h1 class="display-4 text-success">{{ money }}</h1>
+        <p class="card-text text-muted">该金额已成功累计至您的总实验账户中。</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-light">
+        <strong><i class="fa fa-calculator"></i> 收益计算详情</strong>
+    </div>
+    <div class="card-body">
+        <p>根据实验说明，系统从您刚才完成的 15 个决策问题中，<strong>随机抽取了 1 个</strong>作为本阶段的结算依据。</p>
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="fa fa-random text-primary" style="width:25px;"></i> 系统随机抽取的题目：</span>
+                <span class="badge badge-primary badge-pill" style="font-size: 1.1em;">第 {{ selected_round }} 题</span>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="fa fa-star text-warning" style="width:25px;"></i> 您在该题中获得的自有点数：</span>
+                <span class="font-weight-bold">{{ earned_points }} 点</span>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
+                <span><i class="fa fa-money text-success" style="width:25px;"></i> 最终兑换金额：</span>
+                <span class="font-weight-bold">{{ money }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <p class="text-muted small">点击下方按钮进入下一阶段</p>
+    {{ next_button }}
+</div>
+
+{{ endblock }}

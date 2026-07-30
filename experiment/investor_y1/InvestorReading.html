@@ -1,0 +1,430 @@
+{{ block title }}
+    报告审阅与分析
+{{ endblock }}
+
+{{ block content }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    /* 你的 Calibration 表格样式整合在这里 */
+    /* 全局字体设置：强制使用微软雅黑或默认无衬线字体 */
+    body, .comparison-section, .example-quote, .type-tag {
+        font-family: "Microsoft YaHei", "微软雅黑", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-style: normal; /* 确保无斜体 */
+    }
+
+    .comparison-section {
+        background: white; padding: 25px; border-radius: 8px; margin-bottom: 0; 
+        /* 在 modal 里不需要 margin-bottom */
+    }
+    .comparison-title { font-size: 1.4rem; font-weight: bold; text-align: center; margin-bottom: 25px; color: #2c3e50; }
+    .comp-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .comp-table th { background: #f8f9fa; padding: 15px; text-align: center; border: 1px solid #dee2e6; }
+    .comp-table td { padding: 20px; border: 1px solid #dee2e6; vertical-align: top; }
+    
+    .dimension-label { background: #fafafa; text-align: center; vertical-align: middle !important; font-size: 0.9rem; }
+    .score-head { font-size: 1.2rem; font-weight: 800; display: block; margin-bottom: 5px; }
+    
+    .text-30 { color: #e74c3c; }
+    .text-60 { color: #f39c12; }
+    .text-90 { color: #27ae60; }
+
+    .example-quote { 
+        font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 12px; 
+        min-height: 90px; position: relative; z-index: 1;
+        font-style: normal !important; 
+    }
+    
+    .type-tag { font-size: 0.75rem; font-weight: bold; padding: 5px 12px; border-radius: 20px; display: inline-block; }
+    .bg-30 { background: #feeae8; color: #e74c3c; }
+    .bg-60 { background: #fff5e6; color: #f39c12; }
+    .bg-90 { background: #e9f7ef; color: #27ae60; }
+
+    /* 辅助图标颜色 */
+    .text-success { color: #27ae60; }
+    .text-primary { color: #3498db; }
+    .text-warning { color: #f39c12; }
+
+    /* --- 其他原有样式 --- */
+    :root {
+        --ai-color: #0d6efd;
+        --user-color: #198754;
+        --bg-color: #f4f6f9;
+        --paper-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    body { background-color: var(--bg-color); }
+    
+    .toolbar {
+        background: white; padding: 10px 20px; border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03); border-radius: 8px;
+    }
+    .pdf-viewer-container {
+        background: #525659; height: 700px; border: 1px solid #d1d1d1;
+        box-shadow: var(--paper-shadow); border-radius: 4px; overflow: hidden; position: relative;
+    }
+    .pdf-frame { width: 100%; height: 100%; border: none; }
+    
+    .chat-interface {
+        background: white; border-radius: 12px; border: 1px solid #e1e4e8;
+        box-shadow: var(--paper-shadow); display: flex; flex-direction: column; height: 600px; overflow: hidden;
+    }
+    .chat-header {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7); color: white;
+        padding: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-history { flex: 1; overflow-y: auto; padding: 20px; background-color: #fcfcfc; }
+    .message-row { display: flex; margin-bottom: 20px; animation: fadeIn 0.3s forwards; }
+    .msg-avatar { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; margin-right: 10px; flex-shrink: 0; }
+    .row-ai .msg-avatar { background-color: var(--ai-color); margin-right: 10px; }
+    .row-user { flex-direction: row-reverse; }
+    .row-user .msg-avatar { background-color: var(--user-color); margin-left: 10px; margin-right: 0; }
+    .msg-bubble { padding: 12px 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; max-width: 80%; }
+    .row-ai .msg-bubble { background-color: #e9ecef; color: #333; border-top-left-radius: 2px; }
+    .row-user .msg-bubble { background-color: #d1e7dd; color: #0f5132; border-top-right-radius: 2px; }
+    
+    .suggestion-chips { padding: 10px 15px; border-top: 1px solid #eee; overflow-x: auto; white-space: nowrap; background: #f8f9fa; }
+    .chip { display: inline-block; background: white; border: 1px solid #dee2e6; border-radius: 20px; padding: 5px 12px; font-size: 0.8rem; color: #555; cursor: pointer; margin-right: 8px; transition: all 0.2s; }
+    .chip:hover { background-color: #e2e6ea; color: var(--ai-color); border-color: var(--ai-color); }
+    .input-area { padding: 15px; background: white; border-top: 1px solid #dee2e6; }
+    .typing-indicator { display: none; padding: 10px 20px; background: #e9ecef; border-radius: 18px; width: fit-content; margin-left: 45px; margin-bottom: 15px; }
+    .typing-dot { height: 6px; width: 6px; border-radius: 50%; background-color: #888; display: inline-block; animation: typing 1.4s infinite ease-in-out both; margin: 0 1px; }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; } .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* Modal 头部 */
+    .modal-header-calib { background: #343a40; color: white; }
+</style>
+
+<div class="toolbar">
+    <div>
+        <span class="badge badge-secondary p-2"><i class="fas fa-hashtag"></i> 报告来源：Manager Generated</span>
+    </div>
+    <div>
+        <button type="button" class="btn btn-outline-dark btn-sm shadow-sm" data-toggle="modal" data-target="#calibrationModal" onclick="logUiEvent('open_calibration_modal')">
+            <i class="fas fa-balance-scale"></i> 回顾评分基准
+        </button>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    
+    {{ if treatment == 'AI' }}
+    <div class="col-md-7">
+        <div class="chat-interface">
+            <div class="chat-header">
+                <div><i class="fas fa-robot"></i> FinGPT Analyst Assistant</div>
+                <div class="small" style="opacity: 0.8;">Status: Online</div>
+            </div>
+            
+            <div id="chat-history" class="chat-history">
+                <div class="message-row row-ai">
+                    <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="msg-bubble">
+                        您好。我已经阅读了目标公司的《年度 ESG 报告》。<br>
+                        我可以帮您分析环境风险、披露质量或提取关键数据。请问您想了解什么？
+                    </div>
+                </div>
+            </div>
+
+            <div id="typing-indicator" class="typing-indicator">
+                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+            </div>
+
+            <div class="suggestion-chips">
+                <span class="chip" onclick="sendQuickMsg('请先进入专业分析师角色：你是一名资本市场ESG研究员，具备环境科学、公司治理、信息披露与财务分析能力。后续回答请保持：术语准确、证据导向、结论清晰、可操作。先用3-5句话说明你的分析框架与判断原则。', 'role_setup_prompt')">🧭 分析师角色设定Prompt</span>
+                <span class="chip" onclick="sendQuickMsg('请基于当前报告做多维综合评价：从E（排放/资源效率/环境管理）、S（员工/供应链/安全/社会责任）、G（治理结构/内控/激励约束/信息透明度）逐项分析。每个维度给出：亮点、风险点、证据强度（高/中/低）和对总体评分的影响方向。最后给出综合评价结论。', 'multi_dim_report_eval_prompt')">📊 多维综合评价披露报告</span>
+                <span class="chip" onclick="sendQuickMsg('请直接对这份PDF报告给出0-100分总评分，并明确说明与30/60/90锚点分别接近程度。请给出：1）总分；2）E/S/G子分（各0-100）；3）关键加分项与扣分项。', 'direct_score_prompt')">🎯 直接打分Prompt</span>
+            </div>
+
+            <div class="input-area">
+                <div class="input-group">
+                    <input type="text" id="user-input" class="form-control border-right-0" placeholder="输入您的问题..." onkeydown="if(event.keyCode==13) sendMessage()">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <small class="text-muted"><i class="fas fa-shield-alt"></i> AI生成内容仅供参考</small>
+                    <button type="button" class="btn btn-link btn-sm text-secondary p-0" onclick="toggleRawText()">
+                        <i class="fas fa-file-pdf"></i> 查看/隐藏 管理者发布的ESG报告PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mt-4" id="raw-text-container" style="display: none;">
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white small d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-file-pdf"></i> 管理者发布的ESG报告PDF</span>
+                <button type="button" class="close text-dark font-weight-bold" onclick="toggleRawText()" aria-label="Close" style="opacity: 1;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body bg-dark p-0">
+                <div class="pdf-viewer-container">
+                    <iframe src="{{ pdf_url }}#toolbar=0&view=FitH" class="pdf-frame"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ else }}
+    <div class="col-md-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom-0 pt-3 pb-0 d-flex justify-content-between">
+                <h5 class="text-dark mb-0"><i class="fas fa-file-invoice"></i> 2024年度 ESG 报告</h5>
+                <a href="{{ pdf_url }}" target="_blank" class="btn btn-sm btn-outline-primary" onclick="logUiEvent('open_report_new_window')">
+                    <i class="fas fa-external-link-alt"></i> 新窗口打开
+                </a>
+            </div>
+            <div class="card-body p-0 mt-3">
+                <div class="pdf-viewer-container" style="height: 700px;">
+                    <iframe src="{{ pdf_url }}#toolbar=0&view=FitH" class="pdf-frame"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ endif }}
+
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <p class="text-muted small">阅读/交互完成后，请点击下方按钮进入打分页面。</p>
+    <button class="btn btn-success btn-lg px-5 shadow">下一步</button>
+</div>
+
+<div class="modal fade" id="calibrationModal" tabindex="-1" role="dialog" aria-labelledby="calibModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" style="max-width: 90%;"> <div class="modal-content">
+            <div class="modal-header modal-header-calib">
+                <h5 class="modal-title" id="calibModalLabel"><i class="fas fa-ruler"></i> 评分参考标准</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="comparison-section">
+                    <div class="comparison-title">评分校准：ESG 报告的三个专业层级 (基于真实披露指标)</div>
+                    <table class="comp-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 14%;">评估维度</th>
+                                <th class="text-30" style="width: 28.6%;"><span class="score-head">30分样本 (A)</span><br>基础描述型</th>
+                                <th class="text-60" style="width: 28.6%;"><span class="score-head">60分样本 (B)</span><br>运营合规型</th>
+                                <th class="text-90" style="width: 28.6%;"><span class="score-head">90分样本 (C)</span><br>卓越引领型</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="dimension-label">
+                                    <i class="fas fa-leaf text-success fa-2x"></i><br><strong>E 环境</strong><br>
+                                    <small>资源与减排</small>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司严格遵守《环境保护法》，坚持源头减量。我们积极开展植树活动，并对生产车间进行节能照明改造，努力降低能源消耗。”</p>
+                                    <span class="type-tag bg-30">特征：定性描述、缺乏具体绩效数据</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司硫酸雾排放浓度控制在 2.23mg/m³，远低于国家标准。我们实现了污染物24小时在线监测，并自建污水处理站，确保100%达标排放。”</p>
+                                    <span class="type-tag bg-60">特征：高颗粒度KPI、合规数据详实</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司引入ISO 14064碳核查体系，年内绿色电力占比创历史新高（24.57%）。我们通过RTO余热回收实现能源梯级利用，并探索设定SBTi科学减碳目标。”</p>
+                                    <span class="type-tag bg-90">特征：碳资产管理、国际能效对标</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dimension-label">
+                                    <i class="fas fa-users text-primary fa-2x"></i><br><strong>S 社会责任</strong><br>
+                                    <small>权益与安全</small>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司坚持‘以人为本’，保障员工五险一金。我们积极参与乡村振兴，通过购买农产品等消费帮扶形式，累计投入专项扶贫资金。”</p>
+                                    <span class="type-tag bg-30">特征：传统慈善公益、感性叙事</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司构建‘五位一体’安全信息化平台，实现重大风险源实时预警。2024年核心岗位廉洁从业协议签署率100%，人均培训时长超40小时。”</p>
+                                    <span class="type-tag bg-60">特征：流程控制、内部管理数据量化</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司实现连续130万小时无损工事故（国际领先安全记录）。我们实施了覆盖4206人的股权激励计划，并对核心供应商开展ESG现场审计。”</p>
+                                    <span class="type-tag bg-90">特征：全价值链管控、硬核安全绩效指标</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="dimension-label">
+                                    <i class="fas fa-sitemap text-warning fa-2x"></i><br><strong>G 公司治理</strong><br>
+                                    <small>架构与回报</small>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司严格按照《公司法》规范运作。我们修订了多项核心管理制度，通过设立专门职能部门，为公司的稳健经营提供了制度保障。”</p>
+                                    <span class="type-tag bg-30">特征：通用合规话术、缺乏专职ESG架构</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司在交易所年度信息披露考评中获得‘A级’评价。董事会中独立董事占比达1/3，全年召开会议7次，确保了决策的科学性与制衡性。”</p>
+                                    <span class="type-tag bg-60">特征：监管考评优异、管治体系规范化</span>
+                                </td>
+                                <td>
+                                    <p class="example-quote">“公司向全体股东派发现金红利2.54亿元，分红比例达40.12%。我们构建了ESG三级管治体系，并将碳减排关键绩效指标关联高管薪酬考核。”</p>
+                                    <span class="type-tag bg-90">特征：高额现金回报、治理指标关联绩效</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatHistory = document.getElementById('chat-history');
+    const typingIndicator = document.getElementById('typing-indicator');
+    let isWaitingForResponse = false;
+    let chatPollTimer = null;
+
+    function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function formatBubbleText(text) {
+        return escapeHtml(text).replace(/\n/g, '<br>');
+    }
+
+    function scrollToBottom() {
+        if(chatHistory) chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function sendQuickMsg(text, promptId = 'quick_prompt_generic') {
+        if (isWaitingForResponse) return;
+        logUiEvent('click_quick_prompt');
+        document.getElementById('user-input').value = text;
+        sendMessage('quick_button', promptId);
+    }
+
+    function startChatPolling() {
+        stopChatPolling();
+        chatPollTimer = setInterval(() => {
+            liveSend({ 'type': 'chat_poll' });
+        }, 1200);
+    }
+
+    function stopChatPolling() {
+        if (chatPollTimer) {
+            clearInterval(chatPollTimer);
+            chatPollTimer = null;
+        }
+    }
+
+    function logUiEvent(eventName) {
+        try {
+            liveSend({ 'type': 'ui_event', 'event': eventName });
+        } catch (e) {
+            console.warn('UI event log failed:', eventName, e);
+        }
+    }
+
+    function toggleRawText() {
+        let el = document.getElementById('raw-text-container');
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+            el.scrollIntoView({behavior: "smooth"});
+            logUiEvent('open_raw_pdf');
+            liveSend({'type': 'log_access'}); 
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    function sendMessage(source = 'input_box', promptId = 'manual_prompt') {
+        let input = document.getElementById('user-input');
+        let msg = input.value.trim();
+        if (msg === "" || isWaitingForResponse) return;
+
+        if (source === 'quick_button') {
+            logUiEvent('send_quick_prompt');
+        } else {
+            logUiEvent('send_manual_prompt');
+        }
+
+        chatHistory.innerHTML += `
+            <div class="message-row row-user animate__animated animate__fadeInUp">
+                <div class="msg-avatar"><i class="fas fa-user"></i></div>
+                <div class="msg-bubble">${formatBubbleText(msg)}</div>
+            </div>
+        `;
+        input.value = "";
+        scrollToBottom();
+
+        isWaitingForResponse = true;
+        typingIndicator.style.display = 'block';
+        scrollToBottom();
+
+        liveSend({
+            'type': 'chat',
+            'prompt': msg,
+            'source': source,
+            'prompt_id': promptId
+        });
+
+        startChatPolling();
+    }
+
+    function liveRecv(data) {
+        if (data.init_ready === true) {
+            console.log('Calibration PDFs preloaded for chat context.');
+        }
+
+        if (data.error) {
+            console.error('InvestorReading chat error:', data.error);
+            if (isWaitingForResponse) {
+                typingIndicator.style.display = 'none';
+                isWaitingForResponse = false;
+            }
+        }
+
+        if (data.status === 'processing') {
+            return;
+        }
+
+        if (data.reply) {
+            let delay = Math.floor(Math.random() * 1000) + 500;
+            setTimeout(() => {
+                stopChatPolling();
+                typingIndicator.style.display = 'none';
+                isWaitingForResponse = false;
+                chatHistory.innerHTML += `
+                    <div class="message-row row-ai animate__animated animate__fadeIn">
+                        <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="msg-bubble">${formatBubbleText(data.reply)}</div>
+                    </div>
+                `;
+                scrollToBottom();
+            }, delay);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (chatHistory) {
+            liveSend({ 'type': 'init_context' });
+        }
+    });
+</script>
+
+{{ endblock }}

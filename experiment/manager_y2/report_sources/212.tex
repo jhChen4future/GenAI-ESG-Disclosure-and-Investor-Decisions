@@ -1,0 +1,211 @@
+\documentclass[a4paper,12pt]{article}
+
+% 基础宏包配置
+\usepackage{ctex}      % 中文支持
+\usepackage{geometry}  % 页面布局
+\usepackage{booktabs}  % 专业表格线
+\usepackage{longtable} % 长表格
+\usepackage{array}     % 表格列控制
+\usepackage{enumitem}  % 列表定制
+\usepackage{titlesec}  % 标题格式
+\usepackage{fancyhdr}  % 页眉页脚
+\usepackage{xcolor}    % 颜色支持
+\usepackage{graphicx}  % 图形支持
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% 企业VI配色模拟 (深蓝与深绿，体现专业与环保)
+\definecolor{corporateBlue}{RGB}{0, 51, 102}
+\definecolor{sustainGreen}{RGB}{0, 102, 51}
+
+% 标题格式定制
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{corporateBlue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{sustainGreen}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% 列表样式定制
+\setlist[itemize]{label=$\bullet$, leftmargin=*, itemsep=3pt, topsep=3pt}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small \textbf{2024年度环境、社会及治理（ESG）报告}}
+\rhead{\small 责任引领 \cdot 稳健前行}
+\cfoot{\thepage}
+
+\title{\textbf{2024年度ESG报告}\\ \large 管理层讨论与可持续发展绩效}
+\author{本公司董事会}
+\date{2025年3月}
+
+\begin{document}
+
+\maketitle
+
+\section{治理篇：稳健经营与合规体系}
+
+2024年，面对全球宏观经济波动与行业竞争加剧的双重挑战，本公司坚持“三直四化”（电动化、智能网联化、高端化、国际化）战略定力，积极培育新质生产力，实现了高质量发展。公司治理层面，我们强化合规经营，优化供应链管理，并通过稳定的分红政策切实保障股东权益。
+
+\subsection{经济绩效与股东回报}
+报告期内，受益于海外高端市场的持续突破与国内新能源市场的稳健表现，公司主要财务指标均实现正向增长。公司坚持高比例现金分红政策，与投资者共享经营成果。
+
+\begin{table}[h]
+\centering
+\caption{2024年度主要经济绩效指标}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{0.45\textwidth} p{0.25\textwidth} p{0.2\textwidth}}
+\toprule
+\textbf{指标名称} & \textbf{2024年数据} & \textbf{同比变动} \\
+\midrule
+营业收入 & \textbf{372.18 亿元} & +37.63\% \\
+归属于母公司股东的净利润 & \textbf{41.16 亿元} & 稳步增长 \\
+全年现金分红总额 & \textbf{44.28 亿元} & - \\
+分红实施频次 & \textbf{2 次} & - \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{合规管理与风险控制}
+公司始终将合规视为企业发展的生命线，持续完善内部控制体系，提升信息披露质量。
+\begin{itemize}
+    \item \textbf{信息披露}：严格遵循监管要求，连续第13年获得交易所信息披露工作“A级”评价。
+    \item \textbf{体系认证}：报告期内，公司顺利通过ISO 37301合规管理体系认证，标志着公司合规管理水平达到国际标准。
+\end{itemize}
+
+\subsection{供应链管理}
+公司致力于构建绿色、廉洁、稳定的供应链生态体系，推动产业链上下游协同发展。
+\begin{itemize}
+    \item \textbf{供应商概况}：截至报告期末，合作供应商共计 \textbf{530 家}，其中河南本地供应商占比 \textbf{20\%}，有效发挥了链主企业的区域带动作用。
+    \item \textbf{廉洁从业}：公司已与超过 \textbf{900 家} 供应商（含潜在供应商）签署廉洁协议，强化商业道德约束。
+\end{itemize}
+
+\section{社会篇：技术创新与相关方权益}
+
+公司坚持技术创新驱动战略，持续加大研发投入，推动商用车行业向绿色化、智能化转型。同时，公司高度重视员工权益保障与社会公益投入，积极履行企业公民责任。
+
+\subsection{研发创新与知识产权}
+公司持续夯实技术护城河，重点聚焦新能源核心技术与智能网联系统的研发。
+
+\begin{table}[h]
+\centering
+\caption{2024年度研发投入与成果}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l l}
+\toprule
+\textbf{项目} & \textbf{统计数据} \\
+\midrule
+研发投入金额 & 17.88 亿元（占营业收入 4.80\%） \\
+研发人员数量 & 3,505 人（其中博士 16 人） \\
+新增授权专利 & 176 项（其中发明专利 114 项） \\
+累计参与制定标准 & 317 项 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{核心技术突破}
+报告期内，公司在以下关键技术领域取得实质性进展：
+\begin{itemize}
+    \item \textbf{YOS车机操作系统}：基于软硬解耦架构，实现全栈自研。该系统支持独立OTA升级，大幅提升了商用车软件迭代效率与用户体验。
+    \item \textbf{C架构（中央计算+区域控制）}：构建了高集成度的电子电气架构，有效整合全车控制器，显著降低线束复杂度并减轻整车重量。
+    \item \textbf{多合一动力域控制器}：集成碳化硅（SiC）功率模块，相较于传统硅基模块，开关损耗降低 \textbf{50\%--70\%}，显著提升了电驱动系统的综合能效。
+    \item \textbf{多源超低温热泵系统}：开发了集成空气源与余热回收的热管理系统，在低温工况下采暖节能效果达 \textbf{30\%}，有效解决了新能源车辆冬季续航衰减问题。
+\end{itemize}
+
+\subsubsection{智能网联运营}
+\begin{itemize}
+    \item \textbf{自动驾驶}：L4级自动驾驶巴士累计安全运营里程突破 \textbf{1,700 万公里}。
+    \item \textbf{行业准入}：公司获批国家首批智能网联汽车准入试点企业，技术成熟度与安全性获得监管认可。
+\end{itemize}
+
+\subsection{人力资源与安全生产}
+公司建立健全的人才培养与安全保障机制，确保员工在安全的环境中实现职业发展。
+\begin{itemize}
+    \item \textbf{员工结构}：期末员工总数 16,707 人，其中女性员工占比 10.02\%。
+    \item \textbf{安全投入与绩效}：
+    \begin{itemize}
+        \item 全年投入劳动防护资金 \textbf{5,500 余万元}，环境改善资金 \textbf{2,200 余万元}。
+        \item 安全培训投入 \textbf{180 余万元}，覆盖 7.9 万人次。
+        \item 报告期内实现 \textbf{无新增职业病}。
+    \end{itemize}
+\end{itemize}
+
+\subsection{社会贡献与公益慈善}
+2024年，公司对外捐赠及公益项目总投入超 \textbf{4,000 万元}，重点聚焦交通安全教育与生态保护。
+
+\begin{table}[h]
+\centering
+\caption{2024年度重点公益项目}
+\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{项目名称} & \textbf{实施情况与成效} \\
+\midrule
+儿童交通安全公益行 & 走进全国13个省市，通过车辆盲区体验等实景教学模式，覆盖受众近万人，提升儿童交通风险防范意识。 \\
+海外“零碳森林”项目 & 在南美某国干旱地区开展植树造林，累计植树36,000余棵，助力当地生态修复与碳汇建设。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{环境篇：绿色运营与低碳转型}
+
+公司将绿色发展理念融入全生命周期管理，严格执行环境管理体系标准。2024年，公司在能源管理、资源循环利用及污染物控制方面均达成年度预定目标。
+
+\subsection{排放与能源管理}
+公司建立了完善的碳排放核算体系，报告期内主要环境绩效指标如下：
+
+\begin{table}[h]
+\centering
+\caption{2024年度温室气体排放及能源消耗}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+\toprule
+\textbf{指标项目} & \textbf{数值及单位} \\
+\midrule
+范围1排放（直接排放） & 57,330.53 tCO$_2$e \\
+范围2排放（能源间接排放） & 122,786.63 tCO$_2$e \\
+\textbf{温室气体排放强度} & \textbf{0.07 tCO$_2$e/万元营收} \\
+综合能源消费量 & 34,560.94 吨标准煤 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{节能降碳举措}
+公司通过技术改造与清洁能源替代双轮驱动，持续降低能源消耗。
+\begin{itemize}
+    \item \textbf{节能技改}：报告期内实施重点节能项目7项，实现年节电 \textbf{1,258 MWh}，年节气 \textbf{11.34 万m$^3$}。
+    \item \textbf{余热回收}：优化生产工艺热能利用，全年回收利用余热约 \textbf{29,306 GJ}。
+    \item \textbf{清洁能源}：
+    \begin{itemize}
+        \item 厂区分布式光伏发电量 \textbf{155.68 万kWh}，折合减碳约835吨。
+        \item 全年采购绿色电力 \textbf{13,580 MWh}。
+    \end{itemize}
+\end{itemize}
+
+\subsection{资源循环与废弃物管理}
+公司积极推行循环经济模式，提升水资源与固体废弃物的利用效率。
+
+\begin{table}[h]
+\centering
+\caption{2024年度资源利用与废弃物处置绩效}
+\begin{tabular}{l l}
+\toprule
+\textbf{指标类别} & \textbf{关键数据} \\
+\midrule
+\textbf{水资源管理} & \\
+- 新取水量 & 141.25 万吨 \\
+- 重复用水量 & 6,465.36 万吨 \\
+- 重复用水率 & \textbf{97.8\%} \\
+\midrule
+\textbf{废弃物管理} & \\
+- 一般工业固废回收利用量 & 61,485.76 吨 \\
+- 危险废物产生量 & 4,110.84 吨（处置合规率 100\%） \\
+\midrule
+\textbf{绿色物流} & \\
+- 国产零部件周转包装占比 & \textbf{89\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}

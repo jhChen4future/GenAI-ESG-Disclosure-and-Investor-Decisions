@@ -1,0 +1,199 @@
+{{ block title }}
+    角色与任务说明：投资者
+{{ endblock }}
+
+{{ block content }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    /* 保持与之前页面一致的顶刊冷淡风 */
+    :root {
+        --inv-primary: #2c3e50; /* 投资者主色：深邃蓝 */
+        --inv-accent: #3498db;  /* 辅助色 */
+        --bg-light: #f8f9fa;
+    }
+
+    body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #333; }
+
+    /* 流程图卡片 */
+    .flow-card {
+        background: white;
+        border: 1px solid #e3e6f0;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .section-header {
+        border-bottom: 2px solid var(--inv-accent);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        color: var(--inv-primary);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    /* 流程步骤样式 */
+    .step-box {
+        text-align: center;
+        position: relative;
+        padding: 15px;
+        border: 1px dashed #ccc;
+        border-radius: 8px;
+        background: #fff;
+        height: 100%;
+        transition: all 0.3s;
+    }
+    .step-box:hover {
+        border-color: var(--inv-accent);
+        background: #f0f8ff;
+    }
+    .step-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--inv-primary);
+    }
+    .arrow-icon {
+        font-size: 1.5rem;
+        color: #aaa;
+        margin-top: 40px; /* 垂直居中对齐 */
+    }
+
+    /* 收益公式展示 */
+    .formula-box {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 20px;
+        font-size: 0.95rem;
+        color: #2c3e50;
+    }
+
+    /* 关键提示 */
+    .alert-conflict {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+    }
+</style>
+
+<!-- 1. 角色分配 -->
+<div class="flow-card">
+    <div class="section-header">
+        <i class="fas fa-id-card-alt"></i> 角色分配
+    </div>
+    <p>
+        在本次实验任务中，您被分配为 <strong>投资者</strong> 的角色。
+    </p>
+    <p>
+        您将与另一位扮演 <strong>管理者</strong> 的参与者配对。
+        您的任务是阅读管理者发布的《年度 ESG 报告》，并对该公司的<strong>真实表现</strong>进行评估。
+    </p>
+</div>
+
+<!-- 2. 信息结构与博弈流程 -->
+<div class="flow-card">
+    <div class="section-header">
+        <i class="fas fa-project-diagram"></i> 决策流程与信息结构
+    </div>
+    <p class="mb-4">实验将按照以下流程进行，请注意<strong>信息不对称</strong>的存在：</p>
+    <p class="small text-muted mt-n2 mb-4">
+        <i class="fas fa-check-circle text-success"></i>
+        数据真实性说明：实验中提供的公司原始数据与管理者披露的数据均为准确信息，不包含数据层面的欺骗或伪造。
+    </p>
+
+    <div class="row align-items-center justify-content-center">
+        <!-- 步骤 1: 管理者 -->
+        <div class="col-md-3">
+            <div class="step-box">
+                <div class="step-icon text-secondary"><i class="fas fa-user-tie"></i></div>
+                <strong>管理者</strong>
+                <p class="small text-muted mt-2">
+                    观察到公司的<br>真实分数 (0-100)以及原始信息<br>
+                    <span class="badge badge-warning">私有信息</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- 箭头 -->
+        <div class="col-md-1 text-center d-none d-md-block">
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+
+        <!-- 步骤 2: 报告生成 -->
+        <div class="col-md-3">
+            <div class="step-box">
+                <div class="step-icon text-info"><i class="fas fa-file-alt"></i></div>
+                <strong>ESG 报告</strong>
+                <p class="small text-muted mt-2">
+                    管理者撰写并<br>披露报告<br>
+                </p>
+            </div>
+        </div>
+
+        <!-- 箭头 -->
+        <div class="col-md-1 text-center d-none d-md-block">
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+
+        <!-- 步骤 3: 投资者 (您) -->
+        <div class="col-md-3">
+            <div class="step-box" style="border: 2px solid var(--inv-accent);">
+                <div class="step-icon text-primary"><i class="fas fa-search-dollar"></i></div>
+                <strong>投资者 (您)</strong>
+                <p class="small text-muted mt-2">
+                    阅读报告并<br>
+                    <strong>推测真实分数</strong><br>
+                    并提交评分判断
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <p class="mt-4 small mb-0"><strong>您的目标：</strong> 透过报告的表象，<strong>准确还原公司的真实状况</strong>。您的判断越准，收益越高。</p>
+</div>
+
+<!-- 3. 环境与工具 -->
+<div class="flow-card">
+    <div class="section-header">
+        <i class="fas fa-laptop-code"></i> 阅读环境与工具
+    </div>
+    <p>
+        本次实验中，您当前被分配的阅读环境为：<strong>{{ assigned_env_label }}</strong>。
+    </p>
+    <p class="mb-0 text-muted">
+        请根据当前页面提供的工具完成后续阅读与评估任务。
+    </p>
+    {{ if assigned_env_label == '智能辅助环境' }}
+    <p class="mt-3 mb-0 small text-muted">
+        在智能辅助环境中，您将获得 FinGPT 辅助。该助手使用默认参数设置的 <strong>gemini-3.1-flash-lite-preview</strong>，您可以通过对话获得分析帮助。助手已内置管理者披露的报告内容与评分基准文本，可用于信息提取、比较和判断支持。
+    </p>
+    {{ endif }}
+</div>
+
+<!-- 4. 收益规则 -->
+<div class="flow-card">
+    <div class="section-header">
+        <i class="fas fa-coins"></i> 您的收益计算
+    </div>
+    <div class="formula-box">
+        <p class="mb-2">本轮投资任务报酬由<strong>预测准确性 + 理解测试奖励</strong>构成：</p>
+        <h5 class="text-center my-3" style="font-family: 'Courier New', monospace;">
+            任务收益 = 准确性收益 + 理解测试收益
+        </h5>
+        <p class="mb-0">
+            <strong>准确性收益规则：</strong><br>
+            准确性收益 = max(0, 55 - |您的估值 - 真实分数|)。
+            <br>
+            <small class="text-muted">* 另外，理解测试每题答对可获得 6 点奖励。</small>
+        </p>
+    </div>
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <p>如果对上述规则没有疑问，请点击下方按钮进入<strong>“评分标准参考”</strong>环节。</p>
+    {{ next_button }}
+</div>
+
+{{ endblock }}

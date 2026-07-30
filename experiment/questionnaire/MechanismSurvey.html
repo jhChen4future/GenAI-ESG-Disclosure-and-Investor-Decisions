@@ -1,0 +1,76 @@
+{{ block title }}
+    阶段回顾：决策体验
+{{ endblock }}
+
+{{ block content }}
+
+<style>
+    /* 简单的卡片样式 */
+    .survey-card {
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 8px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    
+    /* 题目文字样式优化 */
+    .col-form-label {
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        padding-top: 0;
+    }
+    
+    /* 选项组间距 */
+    .form-group {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #eee;
+    }
+    .form-group:last-child {
+        border-bottom: none;
+    }
+</style>
+
+<div class="alert alert-info shadow-sm mb-4">
+    <i class="fas fa-pen-fancy"></i> 
+    <strong>说明：</strong> 请根据您在刚才任务中的<strong>真实感受</strong>，选择最符合您想法的选项。答案没有对错之分。
+</div>
+
+<div class="survey-card">
+    {{ formfield 'cognitive_effort' }}
+    {{ formfield 'information_overload' }}
+
+    {{ formfield 'perceived_manipulation' }}
+    {{ formfield 'framing_bias' }}
+
+    {{ formfield 'ai_trust' }}
+    {{ formfield 'ai_reliance' }}
+    {{ formfield 'ai_dependence' }}
+
+    {{ formfield 'ai_illusion' }}
+    {{ formfield 'ai_mislead' }}
+    {{ formfield 'confidence_calibration' }}
+
+    {{ formfield 'attribution_error' }}
+    {{ formfield 'decision_accountability' }}
+    {{ formfield 'perceived_decision_quality' }}
+
+    {{ formfield 'prompt_engineering_use' }}
+    {{ formfield 'prompt_iteration' }}
+    {{ formfield 'prompt_specificity' }}
+
+    {{ formfield 'ai_counterstrategy_intent' }}
+    {{ formfield 'ai_detectability_belief' }}
+    {{ formfield 'human_ai_differentiation' }}
+
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <button class="btn btn-primary btn-lg px-5 shadow">提交并继续</button>
+</div>
+
+{{ endblock }}
