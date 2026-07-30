@@ -1,0 +1,81 @@
+{{ block title }}资金分配决策{{ endblock }}
+
+{{ block content }}
+
+<style>
+    .svo-item-row {
+        margin-bottom: 25px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .svo-table {
+        width: 100%;
+        text-align: center;
+    }
+    .svo-table td {
+        padding: 5px;
+        border-right: 1px dashed #ccc;
+    }
+    .svo-table td:last-child {
+        border-right: none;
+    }
+    .payoff-box {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .payoff-self { color: #2e6da4; font-weight: bold; }
+    .payoff-other { color: #3c763d; font-weight: bold; }
+    
+    /* 选中时的样式高亮 */
+    input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+</style>
+
+<div class="alert alert-info">
+    <strong>指导语：</strong> 
+    以下有 15 组分配方案。每一组中包含 9 个选项。
+    <br>每个选项代表：<span class="payoff-self">您获得的金额</span> 和 <span class="payoff-other">对方获得的金额</span>。
+    <br>请在每一组中选择您最倾向的一个分配方案。
+</div>
+
+<form>
+    {{ for item in items }}
+    <div class="svo-item-row">
+        <h5>第 {{ item.id }} 组决策:</h5>
+        
+        <table class="svo-table">
+            <tr>
+                {{ for option in item.options }}
+                <td>
+                    <div class="payoff-box">
+                        自己: <span class="payoff-self">{{ option.0 }}</span><br>
+                        对方: <span class="payoff-other">{{ option.1 }}</span>
+                    </div>
+                </td>
+                {{ endfor }}
+            </tr>
+            
+            <tr>
+                {{ for option in item.options }}
+                <td>
+                    <label style="width: 100%; cursor: pointer; padding: 10px 0;">
+                        <input type="radio" name="svo_{{ item.id }}" value="{{ forloop.counter }}" required>
+                    </label>
+                </td>
+                {{ endfor }}
+            </tr>
+        </table>
+    </div>
+    {{ endfor }}
+
+    <div class="text-center mt-4">
+        {{ next_button }}
+    </div>
+
+</form>
+
+{{ endblock }}

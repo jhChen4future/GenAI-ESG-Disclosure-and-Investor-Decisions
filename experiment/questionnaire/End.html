@@ -1,0 +1,107 @@
+{{ block title }} 实验结束 {{ endblock }}
+
+{{ block content }}
+
+    <div class="alert alert-success">
+        <h4>感谢您的参与！</h4>
+        <p>所有实验环节已结束。您的数据已成功保存。</p>
+        <p class="mb-0"><strong>兑换口径：</strong>{{ exchange_rate_str }}</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <b>总收益明细表</b>
+        </div>
+        
+        <table class="table table-bordered table-striped mb-0" style="font-size: 1.1rem;">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">项目名称</th>
+                    <th scope="col" style="width: 180px; text-align: right;">收益金额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>任务 B (SVO 分配决策)</td>
+                    <td class="text-right font-weight-bold">{{ svo_payoff_str }}</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div>
+                            任务 A (ESG {{ if role == 'Manager' }}披露{{ else }}投资{{ endif }})
+                            <span class="badge badge-info ml-2" style="font-size:0.8rem;">
+                                {{ selected_round_display }}
+                            </span>
+                        </div>
+                        
+                        {{ if role == 'Manager' }}
+                            <div class="mt-2 p-2 bg-white border rounded small text-muted">
+                                <ul class="mb-0 pl-3">
+                                    <li>收到评分: <b>{{ if mgr_received_score != None }}{{ mgr_received_score }} / 100{{ else }}--{{ endif }}</b></li>
+                                    <li>构成: 底薪 ({{ mgr_base_str }}) + 奖金 ({{ mgr_bonus_str }})</li>
+                                    {{ if mgr_detail_missing }}
+                                        <li class="text-danger">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            诊断提示：{{ mgr_detail_missing_msg }}
+                                        </li>
+                                    {{ endif }}
+                                </ul>
+                            </div>
+                        {{ endif }}
+
+                        {{ if role == 'Investor' }}
+                            <div class="mt-2 p-2 bg-white border rounded small text-muted">
+                                {{ if inv_detail_missing }}
+                                    <span class="text-danger">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        警告：本轮详细数据存在缺失。{{ inv_detail_missing_msg }}
+                                    </span>
+                                {{ else }}
+                                    <ul class="mb-0 pl-3">
+                                        <li>
+                                            准确度: 真实值 <b>{{ true_val }}</b> vs 预测值 <b>{{ est_val }}</b> 
+                                            (偏差 {{ diff }})
+                                        </li>
+                                        <li>理解测试奖励: {{ inv_quiz_str }}</li>
+                                    </ul>
+                                {{ endif }}
+                            </div>
+                        {{ endif }}
+                    </td>
+                    <td class="text-right font-weight-bold">{{ invest_task_total_str }}</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        任务 A 三轮收益记录（便于核对）
+                        <div class="mt-2 p-2 bg-white border rounded small text-muted">
+                            <ul class="mb-0 pl-3">
+                                <li>第一轮：{{ payoff_y1_str }}</li>
+                                <li>第二轮：{{ payoff_y2_str }}</li>
+                                <li>第三轮：{{ payoff_y3_str }}</li>
+                                <li>本次抽中轮任务收益：<b>{{ selected_round_task_payoff_str }}</b></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="text-right font-weight-bold">已记录</td>
+                </tr>
+
+                <tr>
+                    <td>基础出场费</td>
+                    <td class="text-right font-weight-bold">{{ showup_fee_str }}</td>
+                </tr>
+                
+                <tr class="table-success" style="font-size: 1.3rem;">
+                    <td class="text-right"><b>最终实发金额：</b></td>
+                    <td class="text-right text-success"><b>{{ total_payoff_str }}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-5 text-muted">
+        <small>Session ID: {{ session.code }} | Participant: {{ participant.code }}</small>
+    </div>
+
+{{ endblock }}

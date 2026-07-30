@@ -1,0 +1,44 @@
+{{ block title }}
+    请稍候
+{{ endblock }}
+
+{{ block content }}
+<div class="card bg-light m-3">
+    <div class="card-body text-center py-5">
+        <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <h4>正在等待对手完成任务一并提交 ESG 报告...</h4>
+        <p class="text-muted">
+            对方提交后，页面将自动跳转。<br>
+            (系统每 3 秒自动检查一次进度)
+        </p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 定义检查函数
+        function checkManagerStatus() {
+            liveSend({'type': 'check_status'});
+        }
+
+        // 1. 立即检查一次
+        checkManagerStatus();
+
+        // 2. 开启定时器，每 3000 毫秒 (3秒) 检查一次
+        let timer = setInterval(checkManagerStatus, 3000);
+
+        // 3. 处理服务器回应
+        window.liveRecv = function(data) {
+            if (data.status === 'ready') {
+                clearInterval(timer); // 停止轮询
+                document.getElementById('form').submit(); // 自动跳转下一页
+            } else {
+                console.log("Manager not ready yet, waiting...");
+            }
+        };
+    });
+</script>
+
+{{ endblock }}

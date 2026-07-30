@@ -1,0 +1,231 @@
+{{ block title }}
+    实验总体说明
+{{ endblock }}
+
+{{ block content }}
+
+<!-- 引入 FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    /* 整体排版：更宽的行高，更易阅读 */
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+    
+    /* 卡片容器：去除过多阴影，保持扁平化学术风格 */
+    .instruction-section {
+        background-color: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 0.35rem;
+        padding: 20px 25px;
+        margin-bottom: 25px;
+    }
+
+    /* 标题样式：JAR/TAR 风格偏好简洁 */
+    h4 {
+        color: #2e59d9; /* 商务蓝 */
+        font-weight: 600;
+        border-bottom: 2px solid #f8f9fc;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        color: #4e73df;
+        font-weight: 600;
+        margin-top: 15px;
+        font-size: 1.1rem;
+    }
+
+    /* 强调框：中性灰蓝色，避免强烈的警示感 */
+    .highlight-box {
+        background-color: #f8f9fc;
+        border-left: 4px solid #4e73df;
+        padding: 15px 20px;
+        margin: 20px 0;
+        color: #5a5c69;
+    }
+
+    /* 任务卡片：统一高度，去除边框颜色干扰 */
+    .task-card {
+        border: 1px solid #d1d3e2;
+        border-radius: 5px;
+        height: 100%;
+        transition: all 0.2s;
+    }
+    .task-card-header {
+        background-color: #eaecf4;
+        color: #333;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-bottom: 1px solid #d1d3e2;
+    }
+    .task-card-body {
+        padding: 15px;
+    }
+
+    /* 列表样式 */
+    ul li {
+        margin-bottom: 8px;
+    }
+    
+    /* 重点文字 */
+    .strong-text {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+	
+	/* --- 修复 Badge 显示问题的专用样式 --- */
+    
+    /* 1. 重新定义 .badge 基础样式，确保布局正常 */
+    .badge {
+        display: inline-block;
+        padding: 0.35em 0.65em;     /* 适当的内边距 */
+        font-size: 0.85em;          /* 字体稍微缩小 */
+        font-weight: 700;           /* 加粗 */
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;     /* 圆角 */
+        color: #fff !important;     /* 【关键】强制文字为白色 */
+    }
+
+    /* 2. 定义 .badge-primary (管理者) - 使用你主题中的商务蓝 */
+    .badge-primary {
+        background-color: #4e73df !important; /* 强制背景色 */
+        border: 1px solid #4e73df;
+    }
+
+    /* 3. 定义 .badge-secondary (投资者) - 使用中性深灰 */
+    .badge-secondary {
+        background-color: #858796 !important; /* 强制背景色 */
+        border: 1px solid #858796;
+    }
+</style>
+
+<!-- 1. 开场白：标准经济学实验范式 -->
+<div class="instruction-section">
+    <h4><i class="fas fa-book-open"></i> 实验概况</h4>
+    <p>
+        欢迎来到本项实验研究。
+        如果在实验过程中您仔细遵循指引并做出决策，您将有机会赚取一定数额的现金。
+    </p>
+    <p>
+        您的最终收益由两个部分组成：
+    </p>
+    <ol>
+        <li><strong>固定出场费</strong>：无论您的决策如何，您都将获得 <strong>5 元</strong> 的基本报酬。</li>
+        <li><strong>决策奖励</strong>：根据您和（或）其他参与者的决策结果，您将获得额外的“实验点数”，并在实验结束时按汇率兑换为现金。</li>
+    </ol>
+</div>
+
+<!-- 2. 匿名性与规则：这对 Accounting 实验至关重要 -->
+<div class="instruction-section">
+    <h4><i class="fas fa-user-shield"></i> 匿名性与规则</h4>
+    <div class="highlight-box">
+        <p>
+            <strong>匿名性承诺：</strong> 
+            在本实验中，您的身份将被严格保密。您将通过一个随机分配的 ID 进行决策，无论是实验期间还是实验结束后，您与其他参与者都不会知道对方的真实身份。
+        </p>
+        <p class="mb-0 mt-2">
+            <strong>数据真实性说明：</strong>
+            实验中展示的公司基础数据与评分基准为准确信息，不包含数据层面的欺骗或伪造。
+        </p>
+    </div>
+    <p>为了确保数据的有效性，请遵守以下实验室规则：</p>
+    <ul>
+        <li>实验期间，<span class="strong-text">严禁与其他参与者交流</span>。</li>
+        <li>请关闭手机和其他电子设备。</li>
+        <li>如有疑问，请举手示意，实验人员将单独为您解答。</li>
+    </ul>
+</div>
+
+<!-- 3. 任务说明：强调独立性 -->
+<div class="instruction-section">
+    <h4><i class="fas fa-tasks"></i> 实验任务构成</h4>
+    <p>
+        本实验包含两个独立的阶段（任务 A 与 任务 B）。您将按系统设定顺序依次完成这两个任务。
+    </p>
+    
+    <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+            <div class="task-card">
+                <div class="task-card-header">任务 A：商业情境决策</div>
+                <div class="task-card-body">
+                    <p>
+                        您将被随机分配角色：<br>
+                        <span class="badge badge-primary">管理者</span> 或 <span class="badge badge-secondary">投资者</span>
+                    </p>
+                    <p class="text-muted small">
+                        在这个任务中，参与者将根据各自掌握的信息进行互动决策。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="task-card">
+                <div class="task-card-header">任务 B：资源分配决策</div>
+                <div class="task-card-body">
+                    <p>
+                        包含 15 组独立的分配选择。
+                    </p>
+                    <p class="text-muted small">
+                        您将决定如何在自己与另一位匿名参与者之间分配资金。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关键修改：用学术语言强调独立性，防止 reviewers 攻击 -->
+    <div class="alert alert-light border border-info mt-3" role="alert">
+        <h5 class="alert-heading" style="margin-top:0; font-size:1rem;"><i class="fas fa-info-circle"></i> 关于任务独立性的说明</h5>
+        <p class="mb-0">
+            请注意，任务 A 与 任务 B 在统计和收益计算上是<strong>完全独立</strong>的。
+            您在其中一个任务中的决策结果不会影响另一个任务的可行集或潜在收益。
+            最终的总收益为两个任务收益的加总。
+        </p>
+    </div>
+</div>
+
+<!-- 4. 技术说明：关于 AI/算法的学术化描述 -->
+<div class="instruction-section">
+    <h4><i class="fas fa-laptop-code"></i> 系统环境说明</h4>
+    <p>
+        在实验的特定环节中，您可能会与<strong>人工智能助手（AI）</strong>进行交互。
+    </p>
+    <p>
+        请仔细阅读屏幕上的特定指引。系统将自动记录您的选择。请务必根据您当时的真实意愿进行决策。
+    </p>
+</div>
+
+<!-- 5. 收益兑换与开始 -->
+<div class="instruction-section">
+    <h4><i class="fas fa-coins"></i> 收益兑换</h4>
+    <p>
+        为便于统一结算，实验中的收益以 <strong>点数</strong> 记账（点数用于替代人民币进行过程展示）。
+    </p>
+    <p class="mb-1">
+        <strong>任务 A（商业情境决策）</strong><br>
+        点数兑换比例：<strong>管理者 1点=0.40人民币；投资者 1点=0.50人民币</strong>
+    </p>
+    <p class="mb-1">
+        <strong>任务 B（资源分配决策 / SVO）</strong><br>
+        点数兑换比例：<strong>1点=0.05人民币</strong>
+    </p>
+    <p class="mb-0">
+        <strong>最终实发金额 = 固定出场费 + 任务 A 收益 + 任务 B 收益</strong>
+    </p>
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <p class="text-muted">请确认您已阅读并理解以上通用规则。</p>
+    {{ next_button }}
+</div>
+
+{{ endblock }}

@@ -1,0 +1,127 @@
+{{ block title }}
+    背景信息调查
+{{ endblock }}
+
+{{ block content }}
+
+<style>
+    .demo-card {
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        border-left: 4px solid #17a2b8;
+        padding-left: 10px;
+    }
+
+    /* 针对长列表（如年级）的优化：分两列显示 */
+    .columns-2 {
+        column-count: 2;
+        column-gap: 20px;
+    }
+    /* 移动端恢复单列 */
+    @media (max-width: 768px) {
+        .columns-2 { column-count: 1; }
+    }
+
+    /* 风险偏好条 */
+    .risk-bar {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 6px;
+    }
+    .risk-text {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #6c757d;
+        text-align: center;
+        width: 60px;
+    }
+</style>
+
+<p class="text-muted mb-4">
+    最后，请填写以下统计信息。这些信息仅用于学术研究的控制变量分析，您的身份将严格保密。
+</p>
+
+<!-- Part 1: 基础人口统计学 -->
+<div class="demo-card">
+    <div class="card-title">基础信息</div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            {{ formfield 'age' }}
+        </div>
+        <div class="col-md-4">
+            {{ formfield 'gender' }}
+        </div>
+        <div class="col-md-4">
+            <!-- 简单的文本输入 -->
+            {{ formfield 'major' }}
+        </div>
+    </div>
+
+    <hr>
+    
+    <div class="form-group">
+        <label style="font-weight:bold;">您所在的年级：</label>
+        <div class="columns-2">
+            <!-- 这里 formfield 会自动生成 radio 列表，我们用 CSS 让它分列 -->
+            {{ formfield 'grade' label="" }}
+        </div>
+    </div>
+</div>
+
+<!-- Part 2: 专业能力与经验 (Controls) -->
+<div class="demo-card">
+    <div class="card-title">专业背景与经验</div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            {{ formfield 'major_background' }}
+        </div>
+        <div class="col-md-6">
+            {{ formfield 'investment_exp' }}
+        </div>
+    </div>
+
+    <div class="mt-3">
+        {{ formfield 'GPT' }}
+    </div>
+</div>
+
+<!-- Part 3: 风险偏好 (Trait) -->
+<div class="demo-card">
+    <div class="card-title">个人特质</div>
+    
+    <div class="form-group">
+        <label style="font-weight:bold;">风险偏好自评：</label>
+        <p class="small text-muted">
+            总体而言，您认为自己是一个愿意承担风险的人吗？(0 = 完全不愿意, 10 = 非常愿意)
+        </p>
+        
+        <div class="risk-bar">
+            <div class="risk-text">厌恶<br>风险</div>
+            <div style="flex-grow: 1; padding: 0 15px;">
+                {{ formfield 'risk_preference' label="" }}
+            </div>
+            <div class="risk-text">追逐<br>风险</div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <button class="btn btn-success btn-lg px-5 shadow">
+        <i class="fas fa-check-circle"></i> 完成实验
+    </button>
+</div>
+
+{{ endblock }}

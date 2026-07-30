@@ -1,0 +1,210 @@
+{{ block title }}
+    第三轮任务说明：披露策略制定
+{{ endblock }}
+
+{{ block content }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    /* 定义 JAR/TAR 风格的沉稳色调 */
+    :root {
+        --jar-blue: #2c3e50;    /* 深灰蓝，代表企业/专业 */
+        --jar-grey: #f8f9fa;    /* 浅灰背景 */
+        --jar-accent: #3498db;  /* 亮点蓝 */
+        --jar-text: #333333;
+    }
+
+    body {
+        color: var(--jar-text);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    /* 模块化容器 */
+    .section-box {
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-top: 3px solid var(--jar-blue); /* 顶部加粗条，类似企业报告 */
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--jar-blue);
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* 私有信息提示 - 模仿机密文件风格 */
+    .private-info {
+        background-color: #fff8e1; /* 极浅的黄色，不刺眼 */
+        border: 1px solid #ffecb3;
+        color: #8d6e63;
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+
+    /* 策略选项的胶囊样式 */
+    .strategy-pill {
+        background-color: #f1f3f5;
+        border-radius: 6px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-left: 3px solid var(--jar-accent);
+    }
+
+    /* 收益公式卡片 */
+    .payoff-card {
+        background-color: #f0f4f8; /* 冷色调背景 */
+        border: 1px solid #d9e2ec;
+        padding: 20px;
+        text-align: center;
+        border-radius: 6px;
+    }
+    .payoff-math {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin: 10px 0;
+    }
+
+    /* 强调文字 */
+    .highlight {
+        font-weight: bold;
+        color: #2980b9;
+    }
+
+    .company-profile {
+        background: linear-gradient(135deg, #f7fbff 0%, #eef5fb 100%);
+        border: 1px solid #d6e4f0;
+        border-left: 4px solid var(--jar-accent);
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 25px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .company-profile-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--jar-blue);
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="company-profile">
+    <div class="company-profile-title"><i class="fas fa-building"></i> 本轮公司概况</div>
+    <p class="mb-0">
+        作为海南自由贸易港建设的核心参与者与推动者，本公司聚焦“机场建设运营管理”这一主业，同时协同发展临空开发、免税商业、空港物业及酒店等特色服务，致力于构建专业化、现代化的空港经济一体化生态。目前，本公司全面服务和融入海南自贸港的发展大局，努力打造连接全球的空中桥梁。在稳健扩大业务版图并实现主责主业重大突破的同时，本公司始终秉持长期主义理念，将ESG标准深度融入公司的内部治理与日常运营之中。
+    </p>
+</div>
+
+<!-- 1. 角色与私有信息 -->
+<div class="section-box">
+    <div class="section-title">
+        <i class="fas fa-id-badge"></i> 角色与私有信息
+    </div>
+    <p>
+        您是公司的 <strong>ESG 披露负责人</strong>。您掌握着关于公司本年度环境绩效的<strong>私有信息</strong>。
+    </p>
+    
+    <div class="private-info">
+        <strong><i class="fas fa-eye-slash"></i> 内部审计结果（仅您可见）：</strong>
+        <p class="mb-0 mt-2">
+            公司本年度的真实综合评分为 <strong>50分</strong>（满分100）。
+            <br>
+            <small>注：这一数值属于行业<strong>中等水平</strong>。公司整体表现合规，但在 ESG 战略整合、治理机制与可验证绩效方面尚无突出领先表现。</small>
+        </p>
+    </div>
+    
+    <p class="mt-3 text-justify">
+        <strong>重要说明：</strong> 市场上的投资者 <strong>无法</strong> 直接观察到上述的真实评分。投资者只能通过阅读您发布的《ESG 年度报告》来推断公司的表现，并据此给出评分。
+    </p>
+</div>
+
+<!-- 2. 激励结构 -->
+<div class="section-box">
+    <div class="section-title">
+        <i class="fas fa-chart-line"></i> 决策目标与收益
+    </div>
+    <div class="row align-items-center">
+        <div class="col-md-7">
+            <p>
+                您的任务是制定披露策略以生成报告。您的最终收益取决于<strong>投资者对公司的评价</strong>，而非公司的真实绩效。
+            </p>
+            <p>
+                <strong>管理层激励合约如下：</strong>
+            </p>
+        </div>
+        <div class="col-md-5">
+            <div class="payoff-card">
+                <div class="text-muted small">您的总收益 (点数) =</div>
+                <div class="payoff-math">
+                    10 + 0.5 × [投资者评分]
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="small text-muted mt-2">
+        * 例如：若投资者根据报告认为公司表现卓越并打出 80 分，您将获得 50 点收益；若投资者认为公司表现较差并打出 30 分，您仅获得 25 点。
+    </p>
+</div>
+
+<!-- 3. 策略空间 -->
+<div class="section-box">
+    <div class="section-title">
+        <i class="fas fa-sliders-h"></i> 披露策略选项
+    </div>
+    <p>
+        由于无法改变公司的真实业绩，您可以通过调整报告的<strong>呈现方式</strong>来影响投资者的感知。您可以在控制台调整以下两个维度：
+    </p>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="strategy-pill">
+                <strong><i class="fas fa-pen-nib"></i> 文本复杂度</strong>
+                <div class="small mt-1">
+                    调整专业术语的密度。<br>
+                    (简明扼要 <i class="fas fa-arrows-alt-h text-muted"></i> 晦涩难懂)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="strategy-pill">
+                <strong><i class="fas fa-file-alt"></i> 视觉复杂度</strong>
+                <div class="small mt-1">
+                    调整图表与排版的清晰度。<br>
+                    (结构清晰 <i class="fas fa-arrows-alt-h text-muted"></i> 视觉繁杂)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. 策略方法说明 -->
+<div class="section-box" style="border-top-color: #17a2b8;">
+    <div class="section-title" style="color: #17a2b8;">
+        <i class="fas fa-project-diagram"></i> 策略方法说明
+    </div>
+    <p>
+        本轮采用<strong>策略法</strong>：您需要分别在五种情境下提交报告策略，情境为投资者拥有 AI 辅助的概率分别为
+        <strong>0%、25%、50%、75%、100%</strong>。
+    </p>
+    <p class="mb-0">
+        系统将按对手实际情境调用对应概率场景下的已提交策略。请对五种情境都做出完整决策。
+    </p>
+</div>
+
+<div class="text-center mt-4 mb-4">
+    <p class="text-muted small">点击下方按钮进入报告生成控制台。您可在提交前反复预览与修改；提交后不可撤销。</p>
+    <button class="btn btn-primary btn-lg" style="padding-left: 30px; padding-right: 30px;">
+        开始制定策略
+    </button>
+</div>
+
+{{ endblock }}

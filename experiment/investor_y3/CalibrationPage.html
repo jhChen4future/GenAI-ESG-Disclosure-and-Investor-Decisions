@@ -1,0 +1,269 @@
+{{ block title }}
+    评分标准校准
+{{ endblock }}
+
+{{ block content }}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    :root {
+        --grade-30: #e74c3c;   /* 30分 - 起步 */
+        --grade-60: #f39c12;   /* 60分 - 合规 */
+        --grade-90: #27ae60;   /* 90分 - 战略 */
+        --bg-color: #f4f6f9;
+        --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    body { background-color: var(--bg-color); color: #333; font-family: "Microsoft YaHei", sans-serif; }
+
+    /* 顶部导航说明 */
+    .system-intro {
+        background: white;
+        border-left: 5px solid #2c3e50;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: var(--card-shadow);
+    }
+
+    /* 核心对照表：区分度模块 */
+    .comparison-section {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 35px;
+        box-shadow: var(--card-shadow);
+    }
+    .comparison-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+    .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .comp-table th {
+        background: #f8f9fa;
+        padding: 15px;
+        text-align: center;
+        border-bottom: 2px solid #eee;
+    }
+    .comp-table td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: top;
+    }
+    .dimension-label {
+        font-weight: bold;
+        color: #2c3e50;
+        width: 120px;
+        background: #fdfdfd;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    .score-head { font-size: 1.2rem; font-weight: 800; }
+    .text-30 { color: var(--grade-30); }
+    .text-60 { color: var(--grade-60); }
+    .text-90 { color: var(--grade-90); }
+    
+    .example-quote { font-size: 0.9rem; font-style: italic; margin-bottom: 5px; display: block; }
+    .type-tag { font-size: 0.8rem; font-weight: bold; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 5px;}
+    .bg-30 { background: #feeae8; color: var(--grade-30); }
+    .bg-60 { background: #fff5e6; color: var(--grade-60); }
+    .bg-90 { background: #e9f7ef; color: var(--grade-90); }
+
+    /* PDF 卡片 */
+    .calibration-container { display: flex; gap: 20px; margin-bottom: 40px;}
+    .calib-card {
+        background: white; border-radius: 8px; box-shadow: var(--card-shadow);
+        flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    }
+    .card-header { padding: 15px; text-align: center; color: white; font-weight: bold; }
+    .pdf-wrapper { height: 350px; background: #525659; }
+    .pdf-frame { width: 100%; height: 100%; border: none; }
+    .btn-fullscreen {
+        display: block; width: 100%; text-align: center; padding: 12px;
+        background: #fff; color: #3498db; text-decoration: none; font-weight: 600;
+    }
+</style>
+
+<div class="system-intro">
+    <div style="font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">
+        <i class="fas fa-info-circle"></i> 实验指南：如何区分 ESG 报告的质量？
+    </div>
+    <p style="font-size: 0.95rem; color: #666; line-height: 1.5; margin: 0;">
+        本实验对标 <strong>Wind ESG 评级体系</strong>。高质量的 ESG 报告不仅仅是“做好事”，而是将环境、社会、治理目标深度融入公司的商业战略与日常运营中。请通过下表快速掌握分值差异，随后阅读 PDF 样本。
+    </p>
+</div>
+
+<!-- 核心对照表：基于真实报告数据的极致区分度模块 -->
+<div class="comparison-section">
+    <div class="comparison-title">评分校准：ESG 报告的三个专业层级 (基于真实披露指标)</div>
+    <table class="comp-table">
+        <thead>
+            <tr>
+                <th style="width: 14%;">评估维度</th>
+                <th class="text-30" style="width: 28.6%;"><span class="score-head">30分样本 (A)</span><br>基础描述型</th>
+                <th class="text-60" style="width: 28.6%;"><span class="score-head">60分样本 (B)</span><br>运营合规型</th>
+                <th class="text-90" style="width: 28.6%;"><span class="score-head">90分样本 (C)</span><br>卓越引领型</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- E 环境 -->
+            <tr>
+                <td class="dimension-label">
+                    <i class="fas fa-leaf text-success fa-2x"></i><br><strong>E 环境</strong><br>
+                    <small>资源与减排</small>
+                </td>
+                <td>
+                    <p class="example-quote">“公司严格遵守《环境保护法》，坚持源头减量。我们积极开展植树活动，并对生产车间进行节能照明改造，努力降低能源消耗。”</p>
+                    <span class="type-tag bg-30">特征：定性描述、缺乏具体绩效数据</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司硫酸雾排放浓度控制在 2.23mg/m³，远低于国家标准。我们实现了污染物24小时在线监测，并自建污水处理站，确保100%达标排放。”</p>
+                    <span class="type-tag bg-60">特征：高颗粒度KPI、合规数据详实</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司引入ISO 14064碳核查体系，年内绿色电力占比创历史新高（24.57%）。我们通过RTO余热回收实现能源梯级利用，并探索设定SBTi科学减碳目标。”</p>
+                    <span class="type-tag bg-90">特征：碳资产管理、国际能效对标</span>
+                </td>
+            </tr>
+            <!-- S 社会责任 -->
+            <tr>
+                <td class="dimension-label">
+                    <i class="fas fa-users text-primary fa-2x"></i><br><strong>S 社会责任</strong><br>
+                    <small>权益与安全</small>
+                </td>
+                <td>
+                    <p class="example-quote">“公司坚持‘以人为本’，保障员工五险一金。我们积极参与乡村振兴，通过购买农产品等消费帮扶形式，累计投入专项扶贫资金。”</p>
+                    <span class="type-tag bg-30">特征：传统慈善公益、感性叙事</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司构建‘五位一体’安全信息化平台，实现重大风险源实时预警。2024年核心岗位廉洁从业协议签署率100%，人均培训时长超40小时。”</p>
+                    <span class="type-tag bg-60">特征：流程控制、内部管理数据量化</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司实现连续130万小时无损工事故（国际领先安全记录）。我们实施了覆盖4206人的股权激励计划，并对核心供应商开展ESG现场审计。”</p>
+                    <span class="type-tag bg-90">特征：全价值链管控、硬核安全绩效指标</span>
+                </td>
+            </tr>
+            <!-- G 公司治理 -->
+            <tr>
+                <td class="dimension-label">
+                    <i class="fas fa-sitemap text-warning fa-2x"></i><br><strong>G 公司治理</strong><br>
+                    <small>架构与回报</small>
+                </td>
+                <td>
+                    <p class="example-quote">“公司严格按照《公司法》规范运作。我们修订了多项核心管理制度，通过设立专门职能部门，为公司的稳健经营提供了制度保障。”</p>
+                    <span class="type-tag bg-30">特征：通用合规话术、缺乏专职ESG架构</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司在交易所年度信息披露考评中获得‘A级’评价。董事会中独立董事占比达1/3，全年召开会议7次，确保了决策的科学性与制衡性。”</p>
+                    <span class="type-tag bg-60">特征：监管考评优异、管治体系规范化</span>
+                </td>
+                <td>
+                    <p class="example-quote">“公司向全体股东派发现金红利2.54亿元，分红比例达40.12%。我们构建了ESG三级管治体系，并将碳减排关键绩效指标关联高管薪酬考核。”</p>
+                    <span class="type-tag bg-90">特征：高额现金回报、治理指标关联绩效</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* 全局字体设置：强制使用微软雅黑或默认无衬线字体 */
+    body, .comparison-section, .example-quote, .type-tag {
+        font-family: "Microsoft YaHei", "微软雅黑", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-style: normal; /* 确保无斜体 */
+    }
+
+    .comparison-section {
+        background: white; padding: 25px; border-radius: 8px; margin-bottom: 35px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .comparison-title { font-size: 1.4rem; font-weight: bold; text-align: center; margin-bottom: 25px; color: #2c3e50; }
+    .comp-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .comp-table th { background: #f8f9fa; padding: 15px; text-align: center; border: 1px solid #dee2e6; }
+    .comp-table td { padding: 20px; border: 1px solid #dee2e6; vertical-align: top; }
+    
+    .dimension-label { background: #fafafa; text-align: center; vertical-align: middle !important; font-size: 0.9rem; }
+    .score-head { font-size: 1.2rem; font-weight: 800; display: block; margin-bottom: 5px; }
+    
+    .text-30 { color: #e74c3c; }
+    .text-60 { color: #f39c12; }
+    .text-90 { color: #27ae60; }
+
+    .example-quote { 
+        font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 12px; 
+        min-height: 90px; position: relative; z-index: 1;
+        font-style: normal !important; /* 二次确保无斜体 */
+    }
+    
+    .type-tag { font-size: 0.75rem; font-weight: bold; padding: 5px 12px; border-radius: 20px; display: inline-block; }
+    .bg-30 { background: #feeae8; color: #e74c3c; }
+    .bg-60 { background: #fff5e6; color: #f39c12; }
+    .bg-90 { background: #e9f7ef; color: #27ae60; }
+
+    /* 辅助图标颜色 */
+    .text-success { color: #27ae60; }
+    .text-primary { color: #3498db; }
+    .text-warning { color: #f39c12; }
+</style>
+<!-- PDF 详细阅读区 -->
+<div class="row calibration-container">
+    <!-- 30分卡片 -->
+    <div class="calib-card">
+        <div class="card-header" style="background: var(--grade-30);">30分样本 (A公司)</div>
+        <div class="pdf-wrapper">
+            <iframe class="pdf-frame" src="{% static C.EXAMPLE_LOW.file_path %}#toolbar=0&view=FitH"></iframe>
+        </div>
+        <a href="{% static C.EXAMPLE_LOW.file_path %}" target="_blank" class="btn-fullscreen">全屏阅读 A公司报告 <i class="fas fa-expand"></i></a>
+    </div>
+
+    <!-- 60分卡片 -->
+    <div class="calib-card">
+        <div class="card-header" style="background: var(--grade-60);">60分样本 (B公司)</div>
+        <div class="pdf-wrapper">
+            <iframe class="pdf-frame" src="{% static C.EXAMPLE_MED.file_path %}#toolbar=0&view=FitH"></iframe>
+        </div>
+        <a href="{% static C.EXAMPLE_MED.file_path %}" target="_blank" class="btn-fullscreen">全屏阅读 B公司报告 <i class="fas fa-expand"></i></a>
+    </div>
+
+    <!-- 90分卡片 -->
+    <div class="calib-card">
+        <div class="card-header" style="background: var(--grade-90);">90分样本 (C公司)</div>
+        <div class="pdf-wrapper">
+            <iframe class="pdf-frame" src="{% static C.EXAMPLE_HIGH.file_path %}#toolbar=0&view=FitH"></iframe>
+        </div>
+        <a href="{% static C.EXAMPLE_HIGH.file_path %}" target="_blank" class="btn-fullscreen">全屏阅读 C公司报告 <i class="fas fa-expand"></i></a>
+    </div>
+</div>
+
+<div class="text-center mt-5 mb-5">
+    <button id="btn-next" class="btn btn-primary btn-lg shadow-sm px-5" disabled>
+        正在加载标准文件 (<span id="timer">5</span>s)
+    </button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        let timeLeft = 5;
+        let btn = document.getElementById("btn-next");
+        let timerSpan = document.getElementById("timer");
+
+        let timerId = setInterval(function() {
+            timeLeft--;
+            timerSpan.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                btn.disabled = false;
+                btn.innerHTML = "我已掌握评分标准，开始正式评估 <i class='fas fa-arrow-right'></i>";
+                btn.onclick = function() { document.getElementById("form").submit(); };
+            }
+        }, 1000);
+    });
+</script>
+
+{{ endblock }}
