@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite the bachelor's thesis."
+title: "GenAI, ESG Disclosure, and Investor Decisions"
+type: software
+authors:
+  - family-names: "Chen"
+    given-names: "Jinghao"
+year: 2026
+repository-code: "https://github.com/jhChen4future/GenAI-ESG-Disclosure-and-Investor-Decisions"
+url: "https://jhchen4future.github.io/"
+preferred-citation:
+  type: thesis
+  title: "ESG Disclosure Strategies and Investor Decision-Making with GenAI"
+  authors:
+    - family-names: "Chen"
+      given-names: "Jinghao"
+  institution:
+    name: "Zhejiang University"
+  year: 2026
